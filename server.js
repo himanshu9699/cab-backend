@@ -12,6 +12,7 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());
+// var d = [];
 
 // Dummy data for cab fare calculation
 const fareRates = {
@@ -29,7 +30,7 @@ const graph = {
 
 // Route to calculate shortest time and estimated cost
 app.post('/calculate', (req, res) => {
-  const { source, destination, cabType, email } = req.body;
+  var { source, destination, cabType, email } = req.body;
   const shortestTime = dijkstra(graph, source, destination);
   const estimatedCost = shortestTime * carPricing(cabType); // Dummy calculation
 
@@ -52,28 +53,64 @@ app.post('/calculate', (req, res) => {
   var currnetDate=`${year}-${month}-${day} ${hour}:${minutes}:${seconds}`;
   const a=0;
   const b=0;
+  var d;
+  // var shortestTime=12;
 
-  const query2 = `
+  // function getData(){
+  //   const promise = new Promise((resolve,reject)=>{
+    var query2 = `
     SELECT *
     FROM main
-    WHERE cab_type = ? AND ((booking_time <= ? AND booking_completed >= ?))`;
-  connection.query(query2, [cabType, currnetDate, currnetDate],(err,result)=>
-  {
+    WHERE cab_type = ? AND booking_completed<?`;
+  // console.log(cabType);
+    connection.query(query2, [cabType,currnetDate],async(err,result)=>
+    {
+      // if(err) reject(err);
 
-    //   const available = result.length === 0;
-    console.log(result.length);
-      if(result.length===0)
+      console.log(result);
+      await r(result)
+      
+      console.log(currnetDate);
+
+    })
+
+
+   async function r(data) {
+    console.log(data)
+    // res.json({ shortestTime, estimatedCost });
+    if(data.length===0)
       {
   
           const query = 'INSERT INTO main (email, cab_type, source, destination,booking_time, booking_completed) VALUES (?, ?, ?, ?,?,?)';
           connection.query(query, [email, cabType, source, destination, currnetDate1,currnetDate]) 
           res.json({ shortestTime, estimatedCost });
       }
-      else{
-          res.json({a,b});
+    else{
+        res.json({a,b});
       }
   }
-  )
+
+  // func()
+  // r()
+
+
+
+  
+  // console.log(d);
+    // var data5=await result;
+    //   const available = result.length === 0;
+    // console.log(data5);
+      // if(data5.length===0)
+      // {
+  
+      //     const query = 'INSERT INTO main (email, cab_type, source, destination,booking_time, booking_completed) VALUES (?, ?, ?, ?,?,?)';
+      //     connection.query(query, [email, cabType, source, destination, currnetDate1,currnetDate]) 
+      //     res.json({ shortestTime, estimatedCost });
+      // }
+      // else if(result.length>0){
+      //     res.json({a,b});
+      // }
+      // res.json({a,b});
   });
 
 // Start server
