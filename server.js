@@ -34,6 +34,13 @@ app.post('/calculate', (req, res) => {
   const estimatedCost = shortestTime * carPricing(cabType); // Dummy calculation
 
   var old_date=new Date();
+  var year1=old_date.getFullYear();
+  var month1=old_date.getMonth()+1;
+  var day1=old_date.getDate();
+  var hour1=old_date.getHours();
+  var minutes1=old_date.getMinutes();
+  var seconds1=old_date.getSeconds();
+  var currnetDate1=`${year1}-${month1}-${day1} ${hour1}:${minutes1}:${seconds1}`;
   var date=new Date(old_date.getTime()+shortestTime*60000);
 
   var year=date.getFullYear();
@@ -58,8 +65,8 @@ app.post('/calculate', (req, res) => {
       if(result.length===0)
       {
   
-          const query = 'INSERT INTO main (email, cab_type, source, destination,booking_completed) VALUES (?, ?, ?, ?,?)';
-          connection.query(query, [email, cabType, source, destination,currnetDate]) 
+          const query = 'INSERT INTO main (email, cab_type, source, destination,booking_time, booking_completed) VALUES (?, ?, ?, ?,?,?)';
+          connection.query(query, [email, cabType, source, destination, currnetDate1,currnetDate]) 
           res.json({ shortestTime, estimatedCost });
       }
       else{
