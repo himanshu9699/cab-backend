@@ -42,6 +42,6 @@
 
 ## Important Note:
 
-For users utilizing the deployment server, please expect a brief delay of 30-40 seconds after clicking the calculate button for the first time. This delay is necessary for server initialization.
+For users utilizing the deployment server, please expect a brief delay of 8-10 seconds after clicking the calculate button for the first time. This delay is necessary for server initialization.
 ##
 Explore and contribute to the SpeedyCab Admin Portal to enhance cab booking management. I welcome your feedback and contributions!
