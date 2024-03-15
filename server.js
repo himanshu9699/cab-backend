@@ -42,7 +42,7 @@ app.post('/calculate', (req, res) => {
   const estimatedCost = shortestTime * carPricing(cabType); // Dummy calculation
 
   var old_date1=new Date();
-  var old_date=new Date(old_date1.getTime() + (5 * 60 * 60 * 1000));
+  var old_date=new Date(old_date1.getTime());
   // var old_date = old_date1.toLocaleString("en-US", {timeZone: "Asia/Kolkata"});
   var year1=old_date.getFullYear();
   var month1=old_date.getMonth()+1;
