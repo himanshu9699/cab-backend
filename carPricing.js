@@ -7,10 +7,6 @@ const cabPrices = {
   };
   
   function carPricing(cabNumber) {
-    if (cabNumber < 1 || cabNumber > 5 || isNaN(cabNumber)) {
-      return "Invalid cab number. Please provide a number between 1 and 5.";
-    }
-  
     const price = cabPrices[cabNumber];
     return price;
   }

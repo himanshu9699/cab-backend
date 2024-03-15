@@ -15,10 +15,6 @@ app.use(cors());
 // var d = [];
 
 // Dummy data for cab fare calculation
-const fareRates = {
-  perKilometer: 1.5,
-  perMinute: 0.5,
-};
 const graph = {
     A: { B: 5, C: 7 },
     B: { A: 5, E: 20, D: 15 },
@@ -45,7 +41,8 @@ app.post('/calculate', (req, res) => {
   const shortestTime = dijkstra(graph, source, destination);
   const estimatedCost = shortestTime * carPricing(cabType); // Dummy calculation
 
-  var old_date=new Date();
+  var old_date1=new Date();
+  var old_date=new Date(old_date1.getTime() + (5 * 60 * 60 * 1000));
   // var old_date = old_date1.toLocaleString("en-US", {timeZone: "Asia/Kolkata"});
   var year1=old_date.getFullYear();
   var month1=old_date.getMonth()+1;
@@ -54,7 +51,8 @@ app.post('/calculate', (req, res) => {
   var minutes1=old_date.getMinutes();
   var seconds1=old_date.getSeconds();
   var currnetDate1=`${year1}-${month1}-${day1} ${hour1}:${minutes1}:${seconds1}`;
-  var date=new Date(old_date.getTime()+shortestTime*60000);
+
+  var date=new Date(old_date.getTime()+(shortestTime*60000));
   // var date = date1.toLocaleString("en-US", {timeZone: "Asia/Kolkata"});
 
   var year=date.getFullYear();
