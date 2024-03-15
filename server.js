@@ -4,7 +4,7 @@ const cors = require('cors');
 const dijkstra = require('./dijkstra')
 const carPricing = require('./carPricing')
 const connection = require('./db');
-const moment = require('moment/moment');
+// const moment = require('moment/moment');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -35,6 +35,7 @@ app.post('/calculate', (req, res) => {
   const estimatedCost = shortestTime * carPricing(cabType); // Dummy calculation
 
   var old_date=new Date();
+  // var old_date = old_date1.toLocaleString("en-US", {timeZone: "Asia/Kolkata"});
   var year1=old_date.getFullYear();
   var month1=old_date.getMonth()+1;
   var day1=old_date.getDate();
@@ -43,6 +44,7 @@ app.post('/calculate', (req, res) => {
   var seconds1=old_date.getSeconds();
   var currnetDate1=`${year1}-${month1}-${day1} ${hour1}:${minutes1}:${seconds1}`;
   var date=new Date(old_date.getTime()+shortestTime*60000);
+  // var date = date1.toLocaleString("en-US", {timeZone: "Asia/Kolkata"});
 
   var year=date.getFullYear();
   var month=date.getMonth()+1;
@@ -59,18 +61,19 @@ app.post('/calculate', (req, res) => {
   // function getData(){
   //   const promise = new Promise((resolve,reject)=>{
     var query2 = `
-    SELECT *
+    SELECT booking_completed
     FROM main
-    WHERE cab_type = ? AND booking_completed<?`;
+    WHERE cab_type = ? AND booking_completed>?`;
   // console.log(cabType);
-    connection.query(query2, [cabType,currnetDate],async(err,result)=>
+    connection.query(query2, [cabType,currnetDate1],async(err,result)=>
     {
       // if(err) reject(err);
 
       console.log(result);
+      // console.log(currnetDate)
       await r(result)
       
-      console.log(currnetDate);
+      // console.log(currnetDate);
 
     })
 
