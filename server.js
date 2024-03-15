@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const dijkstra = require('./dijkstra')
-const carPricing = require('./carPricing')
+// const cabPrices = require('./cabPrices')
 const connection = require('./db');
 // const moment = require('moment/moment');
 
@@ -23,6 +23,25 @@ const graph = {
     E: { B: 20, C: 35, F: 10 },
     F: { E: 10, D: 20 }
   };
+  var cabPrices = {
+    1: '10',
+    2: '20',
+    3: '30',
+    4: '40',
+    5: '50'
+  };
+  app.get('/cab-prices', (req, res) => {
+    res.json(cabPrices);
+  });
+  
+  app.post('/update-cab-prices', (req, res) => {
+    var newPrices = req.body;
+    cabPrices = { ...cabPrices, ...newPrices };
+    res.status(200).send('Cab prices updated successfully.');
+  });
+
+
+
   app.get('/bookings', (req, res) => {
     connection.query('SELECT * FROM main', (err, results) => {
       if (err) {
@@ -39,7 +58,7 @@ const graph = {
 app.post('/calculate', (req, res) => {
   var { source, destination, cabType, email } = req.body;
   const shortestTime = dijkstra(graph, source, destination);
-  const estimatedCost = shortestTime * carPricing(cabType); // Dummy calculation
+  const estimatedCost = shortestTime * cabPrices[cabType]; // Dummy calculation
 
   var old_date1=new Date();
   var old_date=new Date(old_date1.getTime());
@@ -65,10 +84,6 @@ app.post('/calculate', (req, res) => {
   const a=5;
   const b=5;
   var d;
-  // var shortestTime=12;
-
-  // function getData(){
-  //   const promise = new Promise((resolve,reject)=>{
     var query2 = `
     SELECT booking_completed
     FROM main
