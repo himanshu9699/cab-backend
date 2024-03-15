@@ -10,7 +10,7 @@
 2.) Upon submission, an automatic email is sent to the user whose email ID was provided in the input field, ensuring seamless communication.
 
 ### Booking History:
-1.) Access and manage previously booked cab data fetched from the database, ensuring efficient tracking and organization.
+1.) Access previously booked cab data fetched from the database, ensuring efficient tracking and organization.
 
 ### Cab Price Management:
 
@@ -26,7 +26,7 @@
 • Email Integration: Email.js
 ## Deployment:
 
-• Node.js server deployed on Render for reliable backend operations.
+• Node.js server deployed on Railway for reliable backend operations.
 
 • React.js frontend deployed on Vercel for efficient user interactions.
 
